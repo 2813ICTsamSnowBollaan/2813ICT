@@ -1,7 +1,9 @@
 #------------------------------------------------------------------------------------------------------------
 #Importing Libraries
+from operator import truediv
 import pygame
 import random
+import sys
 
 #Initialising Pygame Font Globally
 pygame.font.init()
@@ -253,10 +255,61 @@ def randomShape():
 
 #Text middle is referenced when we want to put text in the middle of the screen
 def textMiddle(surface, text, size, color):
-    font = pygame.font.SysFont("papyrus", size, bold=True)
+    font = pygame.font.SysFont("arial", size, bold=True)
     label = font.render(text, 1, color)
 
     surface.blit(label, (tpLftX + plyAreaWidth /2 - (label.get_width()/2), tpLftY + plyAreaHeight/2 - label.get_height()/2))
+
+#Set of main menu text
+def textMain1(surface, text, size, color):
+    font = pygame.font.SysFont("arial", size, bold=True)
+    label = font.render(text, 1, color)
+    surface.blit(label, (tpLftX + plyAreaWidth /2 - (label.get_width()/2), tpLftY + plyAreaHeight/16 - label.get_height()))
+
+def textMain2(surface, text, size, color):
+    font = pygame.font.SysFont("arial", size, bold=True)
+    label = font.render(text, 1, color)
+    surface.blit(label, (tpLftX + plyAreaWidth /2 - (label.get_width()/2), tpLftY + plyAreaHeight/7 - label.get_height()))
+
+def textMain3(surface, text, size, color):
+    font = pygame.font.SysFont("arial", size, bold=True)
+    label = font.render(text, 1, color)
+    surface.blit(label, (tpLftX + plyAreaWidth /8 - (label.get_width()/1.5), tpLftY + plyAreaHeight/5 - label.get_height()/2))
+
+def textMain4(surface, text, size, color):
+    font = pygame.font.SysFont("arial", size, bold=True)
+    label = font.render(text, 1, color)
+    surface.blit(label, (tpLftX + plyAreaWidth /4.2 - (label.get_width()/2), tpLftY + plyAreaHeight/3.5 - label.get_height()/2))
+
+def textMain5(surface, text, size, color):
+    font = pygame.font.SysFont("arial", size, bold=True)
+    label = font.render(text, 1, color)
+    surface.blit(label, (tpLftX + plyAreaWidth /3.15 - (label.get_width()/2), tpLftY + plyAreaHeight/2.75 - label.get_height()/2))
+
+def textMain6(surface, text, size, color):
+    font = pygame.font.SysFont("arial", size, bold=True)
+    label = font.render(text, 1, color)
+    surface.blit(label, (tpLftX + plyAreaWidth /4 - (label.get_width()/2), tpLftY + plyAreaHeight/2.25 - label.get_height()/2))
+
+def textMain7(surface, text, size, color):
+    font = pygame.font.SysFont("arial", size, bold=True)
+    label = font.render(text, 1, color)
+    surface.blit(label, (tpLftX + plyAreaWidth /2.5 - (label.get_width()/2), tpLftY + plyAreaHeight/1.9 - label.get_height()/2))
+
+def buttonPlay(surface, text, size, color):
+    font = pygame.font.SysFont("arial", size, bold=True)
+    label = font.render(text, 1, color)
+    surface.blit(label, (tpLftX + plyAreaWidth /8 - (label.get_width()/0.5), tpLftY + plyAreaHeight/1.25 - label.get_height()/2))
+
+def buttonConfigure(surface, text, size, color):
+    font = pygame.font.SysFont("arial", size, bold=True)
+    label = font.render(text, 1, color)
+    surface.blit(label, (tpLftX + plyAreaWidth /2 - (label.get_width()/2), tpLftY + plyAreaHeight/1.25 - label.get_height()/2))
+
+def buttonQuit(surface, text, size, color):
+    font = pygame.font.SysFont("arial", size, bold=True)
+    label = font.render(text, 1, color)
+    surface.blit(label, (tpLftX + plyAreaWidth /0.85 - (label.get_width()/2), tpLftY + plyAreaHeight/1.25 - label.get_height()/2))        
 
 
 #visual grid creates a grid for the player to see while playing the game
@@ -300,7 +353,7 @@ def playerTetris(grid, locked):
 #Next shape area both draws the next shape but displays what the next shape will be according to the generated
 #next shape
 def nextShapeArea(shape, surface):
-    font = pygame.font.SysFont('papyrus', 30)
+    font = pygame.font.SysFont('arial', 30)
     label = font.render('Next Shape', 1, (255,255,255))
 
     sx = tpLftX + plyAreaWidth + 50
@@ -337,19 +390,19 @@ def highScore():
     return score
 
 #playable window is the function which sets all the elements for the visable game
-def playableWindow(surface, grid, score=0, bestScore = 0):
+def playableWindow(surface, grid, score=0, bestScore = 0, numLines = 0):
     #this sets the background fill
     surface.fill((0, 0, 0))
 
     #tile word values
     pygame.font.init()
-    font = pygame.font.SysFont('comicsans', 45)
+    font = pygame.font.SysFont('arial', 45)
     label = font.render('Tetris', 1, (255, 255, 255))
 
     surface.blit(label, (tpLftX + plyAreaWidth / 2 - (label.get_width() / 2), 0))
 
     #Current score for the game
-    font = pygame.font.SysFont('papyrus', 30)
+    font = pygame.font.SysFont('arial', 30)
     label = font.render('Score: ' + str(score), 1, (255,255,255))
 
     sx = tpLftX + plyAreaWidth + 50
@@ -364,6 +417,19 @@ def playableWindow(surface, grid, score=0, bestScore = 0):
     sy = tpLftY + 150
 
     surface.blit(label, (sx + 20, sy + 160))
+
+    #Displays Number of lines
+    label = font.render('Number of Lines= ' + str(numLines), 1, (255, 255, 255))
+    surface.blit(label, (sx+20, sy+100))
+
+    #Display Group Number
+    label = font.render('Group Number: 8', 1, (255, 255, 255))
+    surface.blit(label, (sx+20, sy+40))
+
+    #Display Player
+    label = font.render('Type = Player', 1, (255, 255, 255))
+    surface.blit(label, (sx+20, sy-50))
+
 
     for i in range(len(grid)):
         for j in range(len(grid[i])):
@@ -405,6 +471,8 @@ def main(win):
     #The score variable
     score = 0
 
+    numLines=0
+
     #While the code is running
     while run:
         #grid generation parsing in the used positions
@@ -415,6 +483,8 @@ def main(win):
         lvlTime += clock.get_rawtime()
         #Increment the clock
         clock.tick()
+
+        
 
 
         #To be updated with explanations I forgot and didn't wanna error check what I'm doing
@@ -479,9 +549,10 @@ def main(win):
             nextPiece = randomShape()
             changePiece = False
             score += playerTetris(grid, usedPositions) * 10
+            numLines = score/10
 
         #Remake playable Window
-        playableWindow(win, grid, score, bestScore)
+        playableWindow(win, grid, score, bestScore, numLines)
         #Redisplay the next shape area
         nextShapeArea(nextPiece, win)
         #Update pygame display
@@ -496,20 +567,106 @@ def main(win):
             newHighScore(score)
 
 
-#Main menu code will update code with fall stuff and ai later
-def mainMenu(win):  # *
+def configureMenu(win):
     run = True
     while run:
         win.fill((0,0,0))
-        textMiddle(win, 'Press Any Key To Play', 60, (255,255,255))
+        width = win.get_width()
+        height = win.get_height()
+
+        pygame.draw.rect(win,(170, 170, 170),[width/1.60,height/1.26,140,40])
+
+        pygame.font.init()
+        #back
+        font = pygame.font.SysFont('arial', 40)
+        label = font.render('Back', 1, (0, 0, 1))
+        win.blit(label, [width/1.5, height/1.27])
+
+        #Size
+        label = font.render('Game size: ', 1, (255, 255, 255))
+        win.blit(label, [width-700, height-600])
+        #Level
+        label = font.render('Level: ', 1, (255, 255, 255))
+        win.blit(label, [width-700, height-500])
+
+        #Normal
+        label = font.render('Mode: ', 1, (255, 255, 255))
+        win.blit(label, [width-700, height-400])
+
+        #Player
+        label = font.render('Input: ', 1, (255, 255, 255))
+        win.blit(label, [width-700, height-300])
+
+        #Proto
+        label = font.render('Prototype ', 1, (255, 255, 255))
+        win.blit(label, [width-500, height-600])
+        win.blit(label, [width-500, height-500])
+        #Mode
+        label = font.render('Normal', 1, (255, 255, 255))
+        win.blit(label, [width-500, height-400])
+        #Input
+        label = font.render('Player', 1, (255, 255, 255))
+        win.blit(label, [width-500, height-300])
+        
+
+        pygame.display.update()
+        for event in pygame.event.get():
+            #If quit then quit
+            if event.type == pygame.QUIT:
+                pygame.quit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                (x, y) = pygame.mouse.get_pos()
+                pixel = win.get_at((x, y))
+                if pixel == (170, 170, 170) or pixel == (0, 0, 1):
+                    mainMenu(win)
+
+        
+
+
+
+#Main menu code will update code with fall stuff and ai later
+def mainMenu(win):
+    run = True
+    while run:
+        win.fill((0,0,0))
+        width = win.get_width()
+        height = win.get_height()
+
+        textMain1(win, "Tetris: ", 50, (255, 255, 255))
+        textMain2(win, "2805ICT : 2022", 40, (255, 0, 0))
+        textMain3(win, "Group Members: ", 40, (255, 127, 0))
+        textMain4(win, "James Sanders", 40, (255, 255, 0))
+        textMain5(win, "Sam Snow Bollaan", 40, (0, 255, 0))
+        textMain6(win, "Naveen Rodrigo", 40, (0, 255, 255))
+        textMain7(win, "Tinotenda Mukondomi", 40, (128, 0, 128))
+
+        pygame.draw.rect(win,(172, 170, 170),[width/1.5,height/1.27,140,40]) #quit
+        pygame.draw.rect(win,(171, 170, 170),[width/2.60,height/1.27,180,40]) #configure
+        pygame.draw.rect(win,(170, 170, 170),[width/6.8,height/1.27,140,40]) #play
+
+        buttonPlay(win, "Play", 40, (0, 1, 0))
+        buttonConfigure(win, "Configure", 36, (0, 0, 1))
+        buttonQuit(win, "Quit", 40, (1, 0, 0)) 
+        
         pygame.display.update()
         for event in pygame.event.get():
             #If quit then quit
             if event.type == pygame.QUIT:
                 run = False
             #if any key then run main
-            if event.type == pygame.KEYDOWN:
-                main(win)
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                (x, y) = pygame.mouse.get_pos()
+                pixel = win.get_at((x, y))
+                #play
+                if pixel == (170, 170, 170) or pixel == (0, 1, 0):
+                    main(win)
+                #configure
+                if pixel == (171, 170, 170) or pixel == (0, 0, 1):
+                    configureMenu(win)
+                #quit
+                if pixel == (172, 170, 170) or pixel == (1, 0, 0):
+                    pygame.quit()
+        
     #Destroy current display
     pygame.display.quit()
 
